@@ -113,6 +113,8 @@ NS_SWIFT_NAME(FirebaseOptions)
  */
 - (nullable instancetype)initWithContentsOfFile:(NSString *)plistPath NS_DESIGNATED_INITIALIZER;
 
+- (nullable instancetype)initWithData:(NSData *)data NS_DESIGNATED_INITIALIZER;
+
 /**
  * Initializes a customized instance of `FirebaseOptions` with required fields. Use the mutable
  * properties to modify fields for configuring specific services. Note that it is not possible to

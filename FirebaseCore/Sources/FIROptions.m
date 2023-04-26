@@ -197,6 +197,26 @@ static dispatch_once_t sDefaultOptionsDictionaryOnceToken;
   return self;
 }
 
+- (instancetype)initWithData:(NSData *)data {
+  self = [super init];
+  if (self) {
+    if (data == nil) {
+      FIRLogError(kFIRLoggerCore, @"I-COR000013", @"The plist file data is nil.");
+      return nil;
+    }
+    id optionsDictionary = [NSPropertyListSerialization propertyListWithData:data
+                                                                     options:NSPropertyListImmutable
+                                                                      format:NULL
+                                                                       error:NULL];
+    if (optionsDictionary == nil || ![optionsDictionary isKindOfClass:[NSDictionary class]]) {
+      FIRLogError(kFIRLoggerCore, @"I-COR000014", @"The configuration data is corrupted.");
+      return nil;
+    }
+    _optionsDictionary = [optionsDictionary mutableCopy];
+  }
+  return self;
+}
+
 - (instancetype)initWithGoogleAppID:(NSString *)googleAppID GCMSenderID:(NSString *)GCMSenderID {
   self = [super init];
   if (self) {
